@@ -10,6 +10,9 @@ import sys
 from argparse import ArgumentParser
 from datetime import datetime
 from os import path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import browser_cookie3
 import codingame
@@ -116,11 +119,7 @@ class PuzzleClient:
         print(code_file)
 
 def get_cookie():
-  cj = browser_cookie3.chrome()
-  rememberMe = next((c for c in cj if 'codingame' in c.domain and c.name == 'rememberMe'), None)
-  if rememberMe:
-    return rememberMe.value
-  return input('Session cookie from: https://codingame.com -> devtools -> Cookies -> rememberMe\n: ')
+  return os.getenv('REMEMBER_ME_COOKIE')
 
 def download(dcg_path):
   client = codingame.Client()
